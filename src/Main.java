@@ -1,15 +1,18 @@
 public class Main {
     public static void main(String[] args) {
-        BankAccount account = new BankAccount(0);
-        account.deposit(15000);
-        try {
-            while (true) {
-                account.withDraw(6000);
-            }
-        } catch (LimitException e) {
-            System.out.println("Пытался вывести больше доступного баланса");
-            System.out.println("Остаток средств: " + e.getRemainingAmount());
-        }
+        BankAccount account = new BankAccount(15000.0);
+        double withdrawalAmount = 6000.0;
 
+        while (true) {
+            try {
+                account.withDraw(withdrawalAmount);
+                System.out.println("Withdrawn: " + withdrawalAmount);
+            } catch (LimitException e) {
+                double remainingAmount = e.getRemainingAmount();
+                System.out.println("Withdrawn: " + remainingAmount);
+                System.out.println("Remaining amount: " + remainingAmount);
+                break;
+            }
+        }
     }
 }
